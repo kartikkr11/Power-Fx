@@ -2,10 +2,8 @@
 // Licensed under the MIT license.
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,7 +20,7 @@ namespace Microsoft.PowerFx.Core.Tests
     /// If the eval used unsupported behavior, set UnsupportedReason to a message.
     /// This may cause th etest to get skipped rather than fail. 
     /// </summary>
-    public class RunResult
+    public class RunResult 
     {
         // Test case had a Compilation error.
         // Null if none. 
@@ -74,7 +72,7 @@ namespace Microsoft.PowerFx.Core.Tests
     }
 
     // Base class for running a lightweght test. 
-    public abstract class BaseRunner
+    public abstract class BaseRunner : PowerFxTest
     {
         /// <summary>
         /// Maximum time to run test - this catches potential hangs in the engine. 

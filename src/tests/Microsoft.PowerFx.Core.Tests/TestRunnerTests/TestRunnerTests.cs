@@ -11,7 +11,7 @@ using Xunit;
 namespace Microsoft.PowerFx.Core.Tests
 {
     // Tests for validating the TestRunner
-    public class TestRunnerTests
+    public class TestRunnerTests : PowerFxTest
     {
         [Fact]
         public void Test1()
@@ -134,7 +134,7 @@ namespace Microsoft.PowerFx.Core.Tests
             {
                 Assert.Equal(0, failed);
                 Assert.Equal(2, passed);
-            } 
+            }
             else
             {
                 Assert.Equal(2, failed);
@@ -315,7 +315,7 @@ namespace Microsoft.PowerFx.Core.Tests
                 };
                 var result = await runner.RunAsync(test);
 
-                Assert.Equal(TestResult.Fail, result.Item1);                
+                Assert.Equal(TestResult.Fail, result.Item1);
             }
         }
 

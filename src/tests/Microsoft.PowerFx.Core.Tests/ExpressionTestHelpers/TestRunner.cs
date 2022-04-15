@@ -10,11 +10,11 @@ using Microsoft.PowerFx.Core.Public.Types;
 using Microsoft.PowerFx.Core.Public.Values;
 
 namespace Microsoft.PowerFx.Core.Tests
-{    
+{
     /// <summary>
     /// Parse test files and invoke runners to execute them. 
     /// </summary>
-    public class TestRunner
+    public class TestRunner : PowerFxTest
     {
         private readonly BaseRunner[] _runners;
 
@@ -80,7 +80,7 @@ namespace Microsoft.PowerFx.Core.Tests
                 return true;
             }
 
-            return false;  
+            return false;
         }
 
         public void AddFile(string thisFile)
@@ -101,9 +101,9 @@ namespace Microsoft.PowerFx.Core.Tests
             // #Directive: Parameter
             string fileSetup = null;
             string fileOveride = null;
-            
+
             while (i < lines.Length - 1)
-            {               
+            {
                 var line = lines[i + 1];
                 if (string.IsNullOrWhiteSpace(line) || line.StartsWith("//"))
                 {
@@ -120,7 +120,7 @@ namespace Microsoft.PowerFx.Core.Tests
 
                         // Will remove all cases in this file.
                         // Can apply to multiple files. 
-                        var countRemoved = Tests.RemoveAll(test => string.Equals(Path.GetFileName(test.SourceFile), fileDisable, StringComparison.OrdinalIgnoreCase));                        
+                        var countRemoved = Tests.RemoveAll(test => string.Equals(Path.GetFileName(test.SourceFile), fileDisable, StringComparison.OrdinalIgnoreCase));
                     }
                     else if (TryParseDirective(line, "#SETUP:", ref fileSetup) ||
                       TryParseDirective(line, "#OVERRIDE:", ref fileOveride))
@@ -134,10 +134,10 @@ namespace Microsoft.PowerFx.Core.Tests
 
                     i++;
                     continue;
-                }                
+                }
 
-                break;                
-            }            
+                break;
+            }
 
             while (true)
             {
@@ -180,7 +180,7 @@ namespace Microsoft.PowerFx.Core.Tests
                     // handle engine-specific results
                     if (line.StartsWith("/*"))
                     {
-                        throw new InvalidOperationException($"Multiline comments aren't supported in output");                        
+                        throw new InvalidOperationException($"Multiline comments aren't supported in output");
                     }
 
                     test.Expected = line.Trim();
@@ -207,8 +207,8 @@ namespace Microsoft.PowerFx.Core.Tests
                     }
 
                     test = null;
-                } 
-                else 
+                }
+                else
                 {
                     throw new InvalidOperationException($"Parse error at {Path.GetFileName(thisFile)} on line {i}");
                 }
